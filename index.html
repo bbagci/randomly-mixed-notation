@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <title>Randomly mixed notation</title>
+
+    <style>
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Randomly mixed notation</h1>
+
+        <p>Encodes randomly every character either into their decimal or hexadecimal numeric character reference.
+            <a href="https://github.com/bbagci/randomly-mixed-notation">View on GitHub</a>
+        </p>
+
+        <div class="form-group">
+            <label for="ta-input">Input:</label>
+            <textarea class="form-control" name="ta-input" id="ta-input" rows="2" oninput="randomlyMixedNotation(this.value)" placeholder="john.doe@example.com"
+                autofocus></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="ta-output">Output:</label>
+            <textarea class="form-control" name="ta-output" id="ta-output" rows="4" placeholder="" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        const taInput = document.getElementById("ta-input")
+        const taOutput = document.getElementById("ta-output")
+        for (let index = 0; index < taInput.placeholder.length; index++) {
+            if (Math.random() < 0.5) {
+                taOutput.placeholder += "&#" + taInput.placeholder.charCodeAt(index) + ";"
+            } else {
+                taOutput.placeholder += "&#x" + taInput.placeholder.charCodeAt(index).toString(16) + ";"
+            }
+        }
+        function randomlyMixedNotation(rawStr) {
+            taOutput.value = ""
+            for (let index = 0; index < rawStr.length; index++) {
+                if (Math.random() < 0.5) {
+                    taOutput.value += "&#" + rawStr.charCodeAt(index) + ";"
+                } else {
+                    taOutput.value += "&#x" + rawStr.charCodeAt(index).toString(16) + ";"
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
